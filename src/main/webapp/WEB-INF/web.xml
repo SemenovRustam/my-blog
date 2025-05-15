@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0"
+         metadata-complete="false">
+
+    <!-- 1. Обязательные элементы в правильном порядке -->
+    <module-name>myblog</module-name>
+    <display-name>My Spring Blog</display-name>
+
+    <!-- 2. Spring Context Configuration -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
+    <!-- 3. Spring Listener -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 4. Spring MVC DispatcherServlet (ОБРАТИТЕ ВНИМАНИЕ НА УНИКАЛЬНОСТЬ ИМЕНИ) -->
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>  <!-- Уникальное имя -->
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-mvc-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- 5. Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>   <!-- Должно совпадать с именем выше -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

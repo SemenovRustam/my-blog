@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.semenov.controller")
+@ComponentScan("com.semenov")
 @PropertySource("classpath:application.properties")
 public class WebConfig implements WebMvcConfigurer {
 

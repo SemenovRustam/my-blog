@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("war")
+    kotlin("jvm")
 }
 
 group = "com.semenov"
@@ -16,8 +17,8 @@ dependencies {
     implementation("org.springframework:spring-jdbc:6.1.5")
     implementation("org.springframework:spring-tx:6.1.5")
 
-    implementation("org.yaml:snakeyaml:2.2")
     implementation("org.springframework:spring-beans:6.1.5")
+    implementation("org.springframework.data:spring-data-jdbc:3.5.0")
 
     // Spring 6+ (Jakarta-compatible)
     implementation("org.springframework:spring-webmvc:6.1.5")
@@ -32,6 +33,7 @@ dependencies {
     // JUnit
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.test {
@@ -40,4 +42,7 @@ tasks.test {
 
 tasks.withType<War> {
     archiveFileName.set("my-blog.war")
+}
+kotlin {
+    jvmToolchain(21)
 }

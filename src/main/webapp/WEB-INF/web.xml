@@ -6,35 +6,41 @@
          version="6.0"
          metadata-complete="false">
 
-    <!-- 1. Обязательные элементы в правильном порядке -->
     <module-name>myblog</module-name>
     <display-name>My Spring Blog</display-name>
 
-    <!-- 2. Spring Context Configuration -->
+    <!-- 1. Конфигурация корневого контекста (используем Java Config) -->
     <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml</param-value>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
     </context-param>
 
-    <!-- 3. Spring Listener -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>com.semenov.config.RootConfig</param-value>
+    </context-param>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <!-- 4. Spring MVC DispatcherServlet (ОБРАТИТЕ ВНИМАНИЕ НА УНИКАЛЬНОСТЬ ИМЕНИ) -->
+    <!-- 2. Конфигурация DispatcherServlet -->
     <servlet>
-        <servlet-name>dispatcherServlet</servlet-name>  <!-- Уникальное имя -->
+        <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+        </init-param>
+        <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring-mvc-config.xml</param-value>
+            <param-value>com.semenov.config.WebConfig</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- 5. Servlet Mapping -->
     <servlet-mapping>
-        <servlet-name>dispatcherServlet</servlet-name>   <!-- Должно совпадать с именем выше -->
+        <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>

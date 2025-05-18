@@ -16,6 +16,9 @@ dependencies {
     implementation("org.springframework:spring-jdbc:6.1.5")
     implementation("org.springframework:spring-tx:6.1.5")
 
+    implementation("org.yaml:snakeyaml:2.2")
+    implementation("org.springframework:spring-beans:6.1.5")
+
     // Spring 6+ (Jakarta-compatible)
     implementation("org.springframework:spring-webmvc:6.1.5")
 

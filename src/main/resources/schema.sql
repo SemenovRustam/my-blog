@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS posts(
         text VARCHAR NOT NULL,
         likes_count BIGINT DEFAULT 0,
         tags VARCHAR[]
-)
+);
 
 CREATE TABLE IF NOT EXISTS comments(
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

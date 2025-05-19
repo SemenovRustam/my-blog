@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PostRepository {
 
-    List<Post> findPosts(String search, Integer pageSize, Integer offset);
+    List<Post> findAll(String search, Integer pageSize, Integer offset);
 
     Optional<Post> getPostById(Long postId);
 

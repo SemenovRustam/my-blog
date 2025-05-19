@@ -24,7 +24,7 @@ public class PostRepositoryImpl implements PostRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Post> findPosts(String search, Integer pageSize, Integer offset) {
+    public List<Post> findAll(String search, Integer pageSize, Integer offset) {
         return jdbcTemplate.query(
                 "SELECT id, title, image_path, text, likes_count, array_to_string(tags,',') AS tags FROM posts "
                         + (isEmpty(search) ? "" : "WHERE array_position(tags,'" + search + "') > 0 ")

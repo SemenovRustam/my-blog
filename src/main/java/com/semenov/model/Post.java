@@ -15,7 +15,7 @@ import java.util.List;
 @Table("posts")
 @NoArgsConstructor
 @AllArgsConstructor
-public class    Post {
+public class Post {
 
     @Id
     private Long id;

@@ -12,4 +12,9 @@ public class PostController {
     public String getAllPosts() {
         return "posts";
     }
+
+    @GetMapping("/")
+    public String getPost() {
+        return "post";
+    }
 }

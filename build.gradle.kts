@@ -25,6 +25,7 @@ dependencies {
     implementation("org.mapstruct:mapstruct-processor:1.6.3")
     implementation("org.mapstruct:mapstruct:1.6.3")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+    implementation("commons-io:commons-io:2.6")
 
     compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
     compileOnly("org.projectlombok:lombok:1.18.30")

@@ -2,18 +2,17 @@ package com.semenov.repository.impl;
 
 import com.semenov.model.Post;
 import com.semenov.repository.PostRepository;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 

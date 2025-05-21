@@ -1,11 +1,10 @@
 package com.semenov.repository;
 
 import com.semenov.model.Post;
-
 import java.util.List;
 import java.util.Optional;
 
-public interface PostRepository {
+public interface PostRepository  {
 
     List<Post> findAll(String search, Integer pageSize, Integer offset);
 

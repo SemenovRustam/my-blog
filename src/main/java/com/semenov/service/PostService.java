@@ -1,5 +1,6 @@
 package com.semenov.service;
 
+import com.semenov.dto.EditPostDto;
 import com.semenov.dto.PostDto;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,4 +18,6 @@ public interface PostService {
     void editPost(Long postId, String title, String text, MultipartFile image, String tags);
 
     void deletePost(Long postId);
+
+    EditPostDto getEditPostDtoById(Long postId);
 }

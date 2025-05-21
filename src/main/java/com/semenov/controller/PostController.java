@@ -1,5 +1,6 @@
 package com.semenov.controller;
 
+import com.semenov.dto.EditPostDto;
 import com.semenov.dto.PagingDto;
 import com.semenov.dto.PostDto;
 import com.semenov.service.PostService;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+
+import static com.semenov.utils.Const.REDIRECT;
+import static com.semenov.utils.Const.SLASH;
 
 @Controller
 @RequestMapping("/posts")
@@ -67,7 +71,7 @@ public class PostController {
         Long postId = service.addPost(title, text, image, tags);
 
 
-        return "redirect:posts";
+        return REDIRECT;
     }
 
     @PostMapping("/{id}/like")
@@ -77,7 +81,7 @@ public class PostController {
     ) {
 
         service.likePostById(postId, like);
-        return "redirect:/posts" + postId;
+        return REDIRECT + postId;
     }
 
 
@@ -86,8 +90,8 @@ public class PostController {
             Model model,
             @PathVariable("id") Long postId
     ) {
-//        EditPostDto post = service.getEditPostDtoById(postId);
-//        model.addAttribute("post", post);
+        EditPostDto post = service.getEditPostDtoById(postId);
+        model.addAttribute("post", post);
 
         return "add-post";
     }
@@ -103,7 +107,7 @@ public class PostController {
 
         service.editPost(postId, title, text, image, tags);
 
-        return "redirect:/posts" + postId;
+        return REDIRECT + SLASH + postId;
     }
 
 
@@ -111,6 +115,6 @@ public class PostController {
     public String deletePost(@PathVariable("id") Long postId) {
         service.deletePost(postId);
 
-        return "redirect:/posts";
+        return REDIRECT;
     }
 }

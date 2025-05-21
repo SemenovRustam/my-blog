@@ -10,9 +10,8 @@ import org.mapstruct.MappingConstants;
 import java.util.List;
 
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = CommentMapper.class)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PostMapper {
-
     PostDto toPostDto(Post post);
     EditPostDto toEditPostDto(PostDto postDto);
     List<PostDto> toPostDtos(List<Post> posts);

@@ -1,6 +1,7 @@
 package com.semenov.service.impl;
 
 
+import com.semenov.dto.EditPostDto;
 import com.semenov.dto.PostDto;
 import com.semenov.mapper.PostMapper;
 import com.semenov.model.Comment;
@@ -31,17 +32,6 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final PostMapper postMapper;
-
-//    @Override
-//    public List<PostDto> findPosts(String search, Integer pageNumber, Integer pageSize) {
-//        Integer offset = (pageNumber - 1) * pageSize;
-//        log.info(" test log");
-//
-//        return postMapper.toPostDtos(postRepository.findAll(search, pageSize, offset)
-//                .stream()
-//                .map(this::enrichPost)
-//                .toList());
-//    }
 
     @Override
     public List<PostDto> findPosts(String search, Integer pageNumber, Integer pageSize) {
@@ -95,18 +85,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void editPost(Long postId, String title, String text, MultipartFile image, String tags) {
-
         PostDto postDto = getPostById(postId);
         String imagePath = postDto.getImagePath();
-
-        if (!image.isEmpty()) {
-
-            try {
-                imagePath = uploadImage(postId, image);
-            } catch (IOException e) {
-                log.error(e.getMessage(), postId);
-            }
-        }
 
         Post post = Post.builder()
                 .id(postId)
@@ -122,6 +102,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    @Override
+    public EditPostDto getEditPostDtoById(Long postId) {
+        return postMapper.toEditPostDto(getPostById(postId));
     }
 
     private String uploadImage(Long postId, MultipartFile image) throws IOException {

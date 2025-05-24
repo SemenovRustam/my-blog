@@ -12,7 +12,7 @@ import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
-public class CommentControllerTest {
+class CommentControllerTest {
 
     @Mock
     private CommentService commentService;

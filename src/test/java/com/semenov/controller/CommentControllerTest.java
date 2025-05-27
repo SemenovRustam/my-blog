@@ -1,20 +1,27 @@
 package com.semenov.controller;
 
 import com.semenov.service.CommentService;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@ExtendWith(MockitoExtension.class)
-public class CommentControllerTest {
+@WebMvcTest(CommentController.class)
+class CommentControllerTest {
 
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
     private CommentService commentService;
 
     @InjectMocks
@@ -27,30 +34,23 @@ public class CommentControllerTest {
 
 
     @Test
-    public void addComment_ShouldCallServiceAndRedirect() {
-        String result = commentController.addComment(POST_ID, COMMENT_TEXT);
+    @SneakyThrows
+    void addComment_ShouldCallServiceAndRedirect() {
+        mockMvc.perform(post("/posts/{postId}/comments", POST_ID)
+                .param("text", COMMENT_TEXT))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("posts/" + POST_ID));
+
 
         verify(commentService).addComment(POST_ID, COMMENT_TEXT);
-
-        assertEquals(REDIRECT_PATH, result);
     }
 
     @Test
-    public void editComment_ShouldCallServiceAndRedirect() {
-        String result = commentController.editComment(POST_ID, COMMENT_ID, COMMENT_TEXT);
-
-        verify(commentService).editComment(COMMENT_ID, COMMENT_TEXT);
-
-        assertEquals(REDIRECT_PATH, result);
-    }
-
-
-    @Test
-    public void deleteComment_ShouldCallServiceAndRedirect() {
-        String result = commentController.delete(POST_ID, COMMENT_ID);
+    void deleteComment_ShouldCallServiceAndRedirect() throws Exception {
+        mockMvc.perform(post("/posts/{postId}/comments/{commentId}/delete", POST_ID, COMMENT_ID))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("posts/" + POST_ID));
 
         verify(commentService).deleteComment(COMMENT_ID);
-
-        assertEquals(REDIRECT_PATH, result);
     }
 }

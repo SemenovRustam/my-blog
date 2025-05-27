@@ -79,7 +79,7 @@ public class PostRepositoryImpl implements PostRepository {
             ps.setArray(5, connection.createArrayOf("VARCHAR", post.getTags()));
             return ps;
         }, keyHolder);
-        return (Long) keyHolder.getKeyList().getFirst().get("id");
+        return (Long) keyHolder.getKeyList().get(0).get("id");
     }
 
     @Override
